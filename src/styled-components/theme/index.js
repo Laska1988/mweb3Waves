@@ -2,8 +2,8 @@ const theme = {
     breakpoints: {
         sm: '620px',
         md: '725px',
-        lg: '920px',
-        xl: '1225px',
+        lg: '1024px',
+        xl: '1200px',
     },
     colors: {
         black: ['#333'],
