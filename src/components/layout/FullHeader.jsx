@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
+import MediaQuery from 'react-responsive';
 
 import * as Controls from './header-controls';
+import Hamburger from './Hamburger';
 
 import { Flex, Box } from '../shared';
 
@@ -16,29 +18,37 @@ const DesktopHeader = ({
     userLinks,
     filterActive,
     onChangeFilterState,
+    tabletResolution,
 }) => (
     <>
+        <MediaQuery maxWidth={tabletResolution}>
+            <Box pr="22px" position="relative" top="4px">
+                <Hamburger bg="blue.0" height="100%" />
+            </Box>
+        </MediaQuery>
         <Controls.Logo
             justifyContent="center"
             alignItems="center"
             isActive={!filterActive}
             onClick={() => onChangeFilterState(false)}
         />
-        <Flex flex={1} justifyContent="center" alignItems="center">
+        <Flex flex={1} justifyContent={{ 0: 'flex-end', lg: 'center' }} alignItems="center">
             <Flex>
-                {links.map(({ url, title }, index) => (
-                    <Box key={url} as="span" pl={index !== 0 && menuIndent}>
-                        <a href={url}>
-                            <Controls.MenuItem
-                                active={activeUrl.indexOf(url) >= 0}
-                                onClick={() => setActiveUrl(url)}
-                            >
-                                {title}
-                            </Controls.MenuItem>
-                        </a>
-                    </Box>
-                ))}
-                <Box pl={menuIndent}>
+                <MediaQuery minWidth={tabletResolution}>
+                    {links.map(({ url, title }, index) => (
+                        <Box key={url} as="span" pl={index !== 0 && menuIndent}>
+                            <a href={url}>
+                                <Controls.MenuItem
+                                    active={activeUrl.indexOf(url) >= 0}
+                                    onClick={() => setActiveUrl(url)}
+                                >
+                                    {title}
+                                </Controls.MenuItem>
+                            </a>
+                        </Box>
+                    ))}
+                </MediaQuery>
+                <Box pl={menuIndent} pr={{ 0: '32px', lg: 0 }}>
                     <Controls.LanguageSelect language="english" />
                 </Box>
             </Flex>

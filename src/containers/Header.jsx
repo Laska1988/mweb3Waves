@@ -34,6 +34,11 @@ const userLinks = [
     },
 ];
 
+const menuHeight = {
+    0: '114px',
+    sm: '131px',
+};
+
 const Header = ({ onCreateCoupon, filterActive, onChangeFilterState }) => {
     const [activeUrl, setActiveUrl] = useState('');
     const [isMenuActive, setMenuState] = useState(false);
@@ -57,7 +62,7 @@ const Header = ({ onCreateCoupon, filterActive, onChangeFilterState }) => {
 
     return (
         <>
-            <Controls.HeaderLayout height="131px" position="fixed">
+            <Controls.HeaderLayout height={menuHeight} position="fixed">
                 <Flex
                     alignItems="center"
                     height="100%"
@@ -68,11 +73,8 @@ const Header = ({ onCreateCoupon, filterActive, onChangeFilterState }) => {
                     }}
                 >
                     <Flex width="100%" justifyContent="center">
-                        <MediaQuery minWidth={breakpoints.lg}>
-                            <Layout.DesktopHeader {...menuParams} />
-                        </MediaQuery>
-                        <MediaQuery minWidth={breakpoints.sm} maxWidth={breakpoints.lg}>
-                            <Layout.TabletHeader {...menuParams} />
+                        <MediaQuery minWidth={breakpoints.sm}>
+                            <Layout.FullHeader {...menuParams} tabletResolution={breakpoints.lg} />
                         </MediaQuery>
                         <MediaQuery maxWidth={breakpoints.sm}>
                             <Layout.MobileHeader {...menuParams} />
@@ -80,7 +82,7 @@ const Header = ({ onCreateCoupon, filterActive, onChangeFilterState }) => {
                     </Flex>
                 </Flex>
             </Controls.HeaderLayout>
-            <Box width="100%" height="131px" />
+            <Box width="100%" height={menuHeight} />
         </>
     );
 };
